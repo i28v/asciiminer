@@ -468,6 +468,7 @@ static void generate_mine()
         }
     }
 }
+
 static void fall_rock(int index)
 {
     block* b = falling_rocks[index];
