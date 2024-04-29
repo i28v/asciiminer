@@ -464,7 +464,6 @@ static void generate_mine()
                     }
                 }
                 put_block(x, y, b);
-
             }
         }
     }
