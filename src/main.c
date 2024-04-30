@@ -214,8 +214,8 @@ typedef struct {
 static block block_data[TOTAL_BLOCKS] = {
     {AIR_HEALTH, AIR_MINIMUM_TIER, -1, -1, AIR_COLOR, ' ', AIR, NOT_ORE, FALSE},
     {DIRT_HEALTH, DIRT_MINIMUM_TIER, -1, -1, DIRT_COLOR, DIRT_SYM, DIRT, NOT_ORE, FALSE},
-    {-1, -1, -1, -1, EXIT_SHAFT, EXIT_SHAFT_COLOR, EXIT_SHAFT_SYM, NOT_ORE, FALSE},
-    {-1, -1, -1, -1, SUPPORT, SUPPORT_COLOR, SUPPORT_SYM, NOT_ORE, FALSE},
+    {-1, -1, -1, -1, EXIT_SHAFT_COLOR, EXIT_SHAFT_SYM, EXIT_SHAFT, NOT_ORE, FALSE},
+    {-1, -1, -1, -1, SUPPORT_COLOR, SUPPORT_SYM, SUPPORT, NOT_ORE, FALSE},
     {-1, -1, -1, -1, LADDER_COLOR, LADDER_SYM, LADDER, NOT_ORE, FALSE},
     {ROCK_HEALTH, ROCK_MINIMUM_TIER, -1, -1, ROCK_COLOR, ROCK_SYM, ROCK, NOT_ORE, FALSE},
     {-1, -1, -1, -1, ROCK_COLOR, FALLING_ROCK_SYM, FALLING_ROCK, NOT_ORE, FALSE},
@@ -448,7 +448,7 @@ static void generate_mine()
                                 if(!n && copper) b = COPPER_BLOCK;
                                 else {
                                     n = randint() % SILVER_CHANCE;
-                                    if(!n && copper) b = SILVER_BLOCK;
+                                    if(!n && silver) b = SILVER_BLOCK;
                                     else {
                                         n = randint() % GOLD_CHANCE;
                                         if(!n && gold) b = GOLD_BLOCK;
@@ -664,7 +664,7 @@ static void game_update()
         no_update = TRUE;
         break;
     case 'c':
-        if(player_action != NO_ACTION) player_action = NO_ACTION;
+        player_action = NO_ACTION;
         no_update = TRUE;
         break;
     case 'q':
