@@ -14,9 +14,6 @@
 #define MINE_WIDTH 512
 #define MINE_HEIGHT 512
 
-#define SEGMENTS_X 4
-#define SEGMENTS_Y 2
-
 typedef struct {
     char c;
     int color;
@@ -258,12 +255,8 @@ static const int player_starting_money = 100;
 static const int player_start_x = 0;
 static const int player_start_y = 0;
 
-static const long input_delay_ms = 100;
-
 static int player_stamina;
 static int player_x, player_y;
-static int player_lseg_x, player_lseg_y;
-static int player_seg_x, player_seg_y;
 static int player_money;
 static int player_pickaxe_tier;
 static int player_action;
@@ -377,7 +370,7 @@ static void game_init()
     }
     get_block(3, 0)->visible = TRUE;
     player_stamina = player_max_stamina;
-    player_pickaxe_tier = 6;
+    player_pickaxe_tier = player_starting_pickaxe_tier;
     player_x = player_start_x;
     player_y = player_start_y;
     player_scr_x = player_start_x;
