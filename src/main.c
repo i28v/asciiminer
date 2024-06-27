@@ -45,15 +45,15 @@ static void clrscrb()
 
 static void prtscrb()
 {
-	int color;
+    int color;
     for(int y = 0; y < SCREEN_BUFFER_HEIGHT; y++) {
         for(int x = 0; x < SCREEN_BUFFER_WIDTH; x++) {
-			color = screen_buffer[y][x].color;
-			attron(COLOR_PAIR(color));
+            color = screen_buffer[y][x].color;
+            attron(COLOR_PAIR(color));
             addch(screen_buffer[y][x].c);
-			attroff(COLOR_PAIR(color));
+            attroff(COLOR_PAIR(color));
         }
-		addch('\n');
+        addch('\n');
     }
 }
 
@@ -680,7 +680,7 @@ static int* save_ints[SAVE_INT_COUNT] = {
     &inv_ladders,
     &inv_coffee,
     &inv_dynamite,
-    &falling_rocks_top, 
+    &falling_rocks_top,
     &max_ore,
     &max_supports,
     &max_ladders,
@@ -845,8 +845,8 @@ static void generate_mine()
                 put_block(x, y, DIRT)->health = -1;
             } else {
                 if(!(randint() % 2)) bt = DIRT;
-                else { 
-					switch(d) {
+                else {
+                    switch(d) {
                     case 1:
                         rock = !(randint() % (ROCK_CHANCE - 4));
                         break;
@@ -864,14 +864,14 @@ static void generate_mine()
                         rock = !(randint() % ROCK_CHANCE);
                         break;
                     }
-					if(!(randint() % PLATINUM_CHANCE) && platinum) bt = PLATINUM_BLOCK;
-					else if(!(randint() % GOLD_CHANCE) && gold) bt = GOLD_BLOCK;
-					else if(!(randint() % SILVER_CHANCE) && silver) bt = SILVER_BLOCK;
-					else if(!(randint() % COPPER_CHANCE) && copper) bt = COPPER_BLOCK;
-					else if(!(randint() % IRON_CHANCE) && iron) bt = IRON_BLOCK;
-                    else if(!(randint() % COAL_CHANCE) && coal) bt = COAL_BLOCK;	
-					else if(rock && !(x < 10 && y < 10)) bt = ROCK;
-					else bt = DIRT; 
+                    if(!(randint() % PLATINUM_CHANCE) && platinum) bt = PLATINUM_BLOCK;
+                    else if(!(randint() % GOLD_CHANCE) && gold) bt = GOLD_BLOCK;
+                    else if(!(randint() % SILVER_CHANCE) && silver) bt = SILVER_BLOCK;
+                    else if(!(randint() % COPPER_CHANCE) && copper) bt = COPPER_BLOCK;
+                    else if(!(randint() % IRON_CHANCE) && iron) bt = IRON_BLOCK;
+                    else if(!(randint() % COAL_CHANCE) && coal) bt = COAL_BLOCK;
+                    else if(rock && !(x < 10 && y < 10)) bt = ROCK;
+                    else bt = DIRT;
                 }
                 put_block(x, y, bt);
             }
@@ -892,15 +892,13 @@ static boolean build_structure(type structure, type direction)
                && inv_supports > 0) {
                 inv_supports--;
                 supports_placed++;
-            }
-            else s = NONE;
+            } else s = NONE;
             break;
         case LADDER:
             if(inv_ladders > 0) {
                 inv_ladders--;
                 ladders_placed++;
-            }
-            else s = NONE;
+            } else s = NONE;
             break;
         default:
             break;
@@ -1100,7 +1098,7 @@ static boolean move_player(type direction, boolean forced)
             movecam(RIGHT);
             movecam(UP);
             moved = True;
-        } 
+        }
         break;
     case LEFT:
         b = get_block(x_offset-1, y_offset);
@@ -1140,20 +1138,20 @@ static void return_to_surface(type rescue_reason)
 {
     if(rescue_reason != NOT_RESCUED) {
         for(int i = 0; i < rescue_blinks; i++) {
-			erase();
+            erase();
             clrscrb();
             cam_render();
             block* b = get_block(player_x, player_y);
             wrtscrb(player_scr_x, player_scr_y, get_symbol(b), get_color(b));
             prtscrb();
-			refresh();
+            refresh();
             msleep(rescue_blink_ms);
-			erase();
+            erase();
             clrscrb();
             cam_render();
             wrtscrb(player_scr_x, player_scr_y, PLAYER_SYM, player_color);
             prtscrb();
-			refresh();
+            refresh();
             msleep(rescue_blink_ms);
         }
         erase();
@@ -1256,8 +1254,7 @@ static void game_update()
             if(player_x == 1 && player_y == 1) {
                 return_to_surface(NOT_RESCUED);
             } else update = True;
-        }
-        else if(autodig) update = dig(dir);
+        } else if(autodig) update = dig(dir);
         break;
     case ACTION_LEFT:
     case ACTION_DOWN:
@@ -1276,7 +1273,7 @@ static void game_update()
             update = use_dynamite(dir);
         default:
             break;
-        } 
+        }
         break;
     case PLACE_LADDER_KEY:
         player_action = BUILD_LADDER;
@@ -1338,7 +1335,7 @@ static void game_menu()
 {
     char ch;
     int next_pickaxe_price, next_bag_price;
-	erase();
+    erase();
     printw("Your money: $%d\n\n", money);
     if(!shop) {
         printw("You are on the surface\n\n");
@@ -1421,7 +1418,7 @@ static void game_menu()
                 display_shop_upgrade("Pickaxe", next_pickaxe_price, player_pickaxe_tier, max_pickaxe_tier);
                 break;
             case UPGRADE_BAG:
-                next_bag_price = (player_bag_tier < max_bag_tier) ? bag_prices[player_bag_tier + 1] : 0; 
+                next_bag_price = (player_bag_tier < max_bag_tier) ? bag_prices[player_bag_tier + 1] : 0;
                 display_shop_upgrade("Bag", next_bag_price, player_bag_tier, max_bag_tier);
                 break;
             case BUY_COFFEE:
@@ -1515,7 +1512,7 @@ static void display_status(const char* str, int inc)
     move(sy, sx);
 }
 
-static void display_status_int(const char* str, int a, int inc) 
+static void display_status_int(const char* str, int a, int inc)
 {
     printw("%s%d", str, a);
     sy += inc;
@@ -1547,7 +1544,7 @@ static void display_status_action(const char* str, char key, type action, type s
     move(sy, sx);
 }
 
-static void display_status_toggle(const char* str, char key, boolean toggle, int inc) 
+static void display_status_toggle(const char* str, char key, boolean toggle, int inc)
 {
     printw("%c - %s", key, str);
     if(toggle) printw("True ");
@@ -1750,27 +1747,27 @@ exception:
     memset(&sa, 0, sizeof(sa));
     sa.sa_handler = sighandler;
     sigaction(SIGINT, &sa, 0);
-	initscr();	
-	cbreak();
-	noecho();
-	keypad(stdscr, TRUE);
-	curs_set(0);
-	start_color();
-	use_default_colors();
-	init_pair(player_color, player_color, -1);
-	for(int i = 0; i < TOTAL_BLOCKS; i++) {
-		init_pair(blocks[i].color, blocks[i].color, -1);
-	}
-	erase();
+    initscr();
+    cbreak();
+    noecho();
+    keypad(stdscr, TRUE);
+    curs_set(0);
+    start_color();
+    use_default_colors();
+    init_pair(player_color, player_color, -1);
+    for(int i = 0; i < TOTAL_BLOCKS; i++) {
+        init_pair(blocks[i].color, blocks[i].color, -1);
+    }
+    erase();
     while(game_running) {
-		move(0, 0);
+        move(0, 0);
         if(!menu) {
             game_draw();
             game_update();
         } else game_menu();
-		refresh();
+        refresh();
     }
-	endwin();	
+    endwin();
     if(!save_game(savename)) {
         fprintf(stderr, "Error occured while writing to file %s", savename);
         return -1;

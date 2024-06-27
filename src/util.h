@@ -20,13 +20,13 @@
 
 #include <stdbool.h>
 
-#else 
+#else
 
 typedef unsigned char boolean;
 #define True ((boolean)(1==1))
 #define False ((boolean)(!True))
 
-#endif 
+#endif
 
 #define DEBUG FALSE
 
@@ -79,7 +79,7 @@ inline void randrange(int min, int max)
     return (randint() % (max + 1 - min) + min);
 }
 
-#else 
+#else
 
 #define set_seed(seed) random_seed = seed;
 
