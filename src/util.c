@@ -1,14 +1,14 @@
-#define _POSIX_C_SOURCE 199309L
-
 #include "util.h"
 
 #include <termios.h>
 #include <fcntl.h>
+#include <errno.h>
+#include <unistd.h>
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <errno.h>
-#include <unistd.h>
+
 
 int msleep(long msec)
 {
@@ -26,26 +26,15 @@ int msleep(long msec)
     return res;
 }
 
-void modify_terminal()
+boolean strisnum(const char* str)
 {
-    struct termios terminal_interface;
-    /* int fcntl_flags = 0; */
-    tcgetattr(STDIN_FILENO, &terminal_interface);
-    terminal_interface.c_lflag &= ~(ICANON | ECHO);
-    tcsetattr(STDIN_FILENO, TCSANOW, &terminal_interface);
-    /* fcntl_flags = fcntl(STDIN_FILENO, F_GETFL, 0);
-       fcntl(STDIN_FILENO, F_SETFL, fcntl_flags | O_NONBLOCK); */
-}
-
-void restore_old_terminal()
-{
-    struct termios terminal_interface;
-    /* int fcntl_flags = 0; */
-    tcgetattr(STDIN_FILENO, &terminal_interface);
-    terminal_interface.c_lflag |= ICANON | ECHO;
-    tcsetattr(STDIN_FILENO, TCSANOW, &terminal_interface);
-    /* fcntl_flags = fcntl(STDIN_FILENO, F_GETFL, 0);
-       fcntl(STDIN_FILENO, F_SETFL, fcntl_flags & ~O_NONBLOCK); */
+    unsigned char n;
+    if(str[0] == '0' && strlen(str) > 1) return False;
+    for(int i = 0; i < strlen(str); i++) {
+        n = (unsigned char)(str[i] - '0');
+        if(n > 9) return False;
+    }
+    return True;
 }
 
 unsigned int random_seed = 0;

@@ -1,8 +1,8 @@
 CC=gcc
-CFLAGS=-Wall -O2 -std=c99 -pedantic
-LDFLAGS=-O2 -s
+CFLAGS=-Wall -Os -std=c99 -pedantic
+LDFLAGS=-s -Os
 INCLUDES=
-LIBS=
+LIBS=-lncurses
 SRC=$(wildcard src/*.c)
 OBJ=$(SRC:%.c=%.o)
 OUT=miner
